@@ -4,13 +4,13 @@ import axios from 'axios';
 import { useToken } from "../auth/useToken";
 
 export  const  SignUp = () => {
-  const [token, setToken] = useToken();
+  const {token, setToken} = useToken();
   const [errorMessage, setErrorMessage] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [confirmedPasswordValue, setconfirmedPasswordValue] = useState('');
 
-  const history = useNavigate();
+  const navigate = useNavigate();
 
   const onSignUpClicked = async () => {
     const response = await axios.post('/api/signup', {
@@ -19,7 +19,7 @@ export  const  SignUp = () => {
     })
     const {token} = response.data;
     setToken(token);
-    history.push('/');
+    navigate('/');
   }
 
   return (
@@ -54,7 +54,7 @@ export  const  SignUp = () => {
        Sign Up
       </button>
       
-      <button onClick={() => history.push('/login')}>Already have an account?</button>
+      <button onClick={() => navigate('/login')}>Already have an account?</button>
     </div>
   );
 }
