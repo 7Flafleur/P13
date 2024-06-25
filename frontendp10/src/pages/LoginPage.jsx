@@ -13,13 +13,19 @@ export  const  LogInPage = () => {
   const navigate = useNavigate();
 
   const onLogInClicked = async () => {
-    const response = await axios.post('/api/login', {
-      email: emailValue,
-      password: passwordValue
-    })
-    const {token} = response.data;
-    setToken(token);
-    navigate('/profile');
+
+    // const response = await axios.post('localhost:3001/user/login', {
+    //   email: emailValue,
+    //   password: passwordValue
+    // })
+    // const {token} = response.data;
+    await new Promise(resolve => setTimeout(resolve, 1000));
+
+    const mockToken = "mockToken123";
+
+    setToken(mockToken);
+    console.log("Token:", token)
+    navigate('/user');
   }
 
   return (
@@ -30,7 +36,7 @@ export  const  LogInPage = () => {
         type="email"
         value={emailValue}
         onChange={e => setEmailValue(e.target.value)}
-        placeholder="someone@example.com" 
+        placeholder="username" 
       />
       <input
         type="password"
@@ -44,8 +50,8 @@ export  const  LogInPage = () => {
       >
         Log In
       </button>
-      <button onClick={() => navigate('/forgot-password')}>Forgot your password?</button>
-      <button onClick={() => navigate('/signup')}>Sign Up</button>
+      {/* <button onClick={() => navigate('/forgot-password')}>Forgot your password?</button>
+      <button onClick={() => navigate('/signup')}>Sign Up</button> */}
     </div>
   );
 }
