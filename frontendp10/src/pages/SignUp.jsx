@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToken } from "../auth/useToken";
 
-export default function SignUp() {
+export  const  SignUp = () => {
   const [token, setToken] = useToken();
   const [errorMessage, setErrorMessage] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
   const [confirmedPasswordValue, setconfirmedPasswordValue] = useState('');
 
-  const history = useHistory();
+  const history = useNavigate();
 
   const onSignUpClicked = async () => {
     const response = await axios.post('/api/signup', {

@@ -1,16 +1,16 @@
 import { useState } from "react";
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToken } from "../auth/useToken";
 
-export default function LogInPage() {
+export  const  LogInPage = () => {
   const [token, setToken] = useToken();
 
   const [errorMessage, setErrorMessage] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
-  const history = useHistory();
+  const navigate = useNavigate();
 
   const onLogInClicked = async () => {
     const response = await axios.post('/api/login', {
@@ -19,7 +19,7 @@ export default function LogInPage() {
     })
     const {token} = response.data;
     setToken(token);
-    history.push('/profile');
+    navigate('/profile');
   }
 
   return (
@@ -44,8 +44,8 @@ export default function LogInPage() {
       >
         Log In
       </button>
-      <button onClick={() => history.push('/forgot-password')}>Forgot your password?</button>
-      <button onClick={() => history.push('/signup')}>Sign Up</button>
+      <button onClick={() => navigate('/forgot-password')}>Forgot your password?</button>
+      <button onClick={() => navigate('/signup')}>Sign Up</button>
     </div>
   );
 }

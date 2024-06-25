@@ -1,11 +1,11 @@
-import { Redirect,Route } from "react-router-dom/cjs/react-router-dom.min";
+import { Navigate,Route } from "react-router-dom";
 
 
-export default function PrivateRoute(props){
+export  const  PrivateRoute = (props) =>{
 
     const user= null;
 
-    if (!user) return <Redirect to="/login" />
+    if (!user) return <Navigate to="/login" />
 
     return <Route {...props} />
 

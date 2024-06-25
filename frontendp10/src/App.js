@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import './App.css';
-import { AppRoutes } from './Routes';
+import { AppRoutes } from '../src/Routes/AppRoutes';
 
 export default function App() {
   return (
