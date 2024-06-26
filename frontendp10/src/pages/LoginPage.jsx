@@ -30,9 +30,7 @@ export  const  LogInPage = () => {
         password: passwordValue
       });
 
-      if (response.status !== 200) {
-        setErrorMessage('Unable to log in. Did you check your credentials?');
-      } else {
+      
         const emailPayload={email:emailValue}
         const tokenPayload = {token:response.data.body.token}
         console.log(emailPayload)
@@ -43,9 +41,18 @@ export  const  LogInPage = () => {
         console.log("user set to:",emailPayload)
         
 
-      }
+      
     } catch (error) {
-      setErrorMessage('An error occurred. Please try again later.');
+      if(error.response.status === 400)
+        {
+          setErrorMessage('Unable to log in. Did you check your credentials?');
+        }
+       else if (error.response.status === 500) {
+        setErrorMessage('Server error. Please try again later.');
+      } else {
+        
+        setErrorMessage(`An error occurred: ${error.response.status}. Please try again later.`);
+      }
     }
   };
 
