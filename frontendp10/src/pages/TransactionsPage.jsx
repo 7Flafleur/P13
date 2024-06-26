@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+import { useDispatch } from "react-redux";
 
 const TransactionsPage = () => {
 
@@ -14,6 +15,15 @@ const TransactionsPage = () => {
     };
 
 
+    const dispatch = useDispatch();
+
+    const handleLogoutClick = (event) => {
+      dispatch(logout())
+      console.log('Link was clicked.');
+      console.log('User',user)
+      console.log("Token",token)
+      navigate('/')
+    };
 
 
 
@@ -23,7 +33,7 @@ const TransactionsPage = () => {
                 <div className="logo">ARGENTBANK</div>
                 <div className="user-info">
                     <span>Tony</span>
-                    <Link to="/"><FontAwesomeIcon icon={faSignOutAlt} /></Link>
+                    <Link onClick={handleLogoutClick} to="/"><FontAwesomeIcon icon={faSignOutAlt} />Sign out</Link>
                 </div>
             </header>
             <section className="balance-section">
