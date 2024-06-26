@@ -19,39 +19,59 @@ export  const  LogInPage = () => {
     //   password: passwordValue
     // })
     // const {token} = response.data;
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    
 
     const mockToken = "mockToken123";
 
     setToken(mockToken);
-    console.log("Token:", token)
-    navigate('/user');
+    console.log("Token set to:", token)
+    navigate('/user/profile');
   }
 
   return (
-    <div className="content-container">
-      <h1>Log In</h1>
-      {errorMessage && <div className="fail">{errorMessage}</div>}
-      <input 
-        type="email"
-        value={emailValue}
-        onChange={e => setEmailValue(e.target.value)}
-        placeholder="username" 
-      />
-      <input
-        type="password"
-        value={passwordValue}
-        onChange={e => setPasswordValue(e.target.value)}
-        placeholder="password" 
-      />
-      <button 
-        disabled={!emailValue || !passwordValue}
-        onClick={onLogInClicked}
-      >
-        Log In
-      </button>
-      {/* <button onClick={() => navigate('/forgot-password')}>Forgot your password?</button>
-      <button onClick={() => navigate('/signup')}>Sign Up</button> */}
+
+    <div className="main bg-dark">
+
+      <section className="sign-in-content">
+        <h1>Sign In</h1>
+        {errorMessage && <div className="fail">{errorMessage}</div>}
+        <i class="fa fa-user-circle sign-in-icon"></i>
+
+        <div className="input-wrapper">
+          <label for="username">Username</label>
+          <input
+            type="email"
+            value={emailValue}
+            onChange={e => setEmailValue(e.target.value)}
+            placeholder="username" id="username"
+          />
+
+        </div>
+
+
+        <div className="input-wrapper">
+          <input
+            type="password"
+            value={passwordValue}
+            onChange={e => setPasswordValue(e.target.value)}
+            placeholder="password"
+          />
+        </div>
+        <div class="input-remember">
+            <input type="checkbox" id="remember-me" /><label for="remember-me"
+              >Remember me</label>
+          </div>
+
+        <button className="sign-in-button"
+          disabled={!emailValue || !passwordValue}
+          onClick={onLogInClicked}
+        >
+          Sign In
+        </button>
+        {/* <button onClick={() => navigate('/forgot-password')}>Forgot your password?</button>
+        <button className="sign-up-button" onClick={() => navigate('/user/signup')}>Sign Up</button>
+         */}
+      </section>
     </div>
   );
 }
