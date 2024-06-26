@@ -1,0 +1,38 @@
+import { createSlice } from '@reduxjs/toolkit';
+
+const userAuthSlice = createSlice({
+    name: "userAuth",
+    initialState: {
+        user: null,
+        token: null,
+    },
+    reducers: {
+        setUser: (state, action) => {
+            // Check if the action.payload contains only an email or additional properties
+            if (action.payload.email && Object.keys(action.payload).length === 1) {
+                // If only email is provided, set the user object with the email
+                state.user = { email: action.payload.email };
+            } else {
+                // If additional properties are provided, set the user object with those properties
+                state.user = {
+                    ...state.user, // Preserve existing user properties
+                    ...action.payload, // Update user properties with payload
+                };
+            }
+            // Optionally set the token if it's included in the payload
+            if (action.payload.token) {
+                state.token = action.payload.token;
+            }
+        },
+        logout: (state) => {
+            state.user = null;
+            state.token = null;
+        },
+        setToken: (state, action) => {
+            state.token = action.payload;
+        },
+    },
+});
+
+export const { setUser, logout, setToken } = userAuthSlice.actions;
+export default userAuthSlice;

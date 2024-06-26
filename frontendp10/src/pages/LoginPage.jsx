@@ -1,29 +1,67 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToken } from "../auth/useToken";
+import {  setToken, setUser } from '../redux/Slices';
+import {useDispatch, useSelector} from 'react-redux';
+
 
 export  const  LogInPage = () => {
-  const {token, setToken} = useToken();
 
+  const dispatch = useDispatch();
+
+  
   const [errorMessage, setErrorMessage] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
 
+  const user = useSelector(state => state.userAuth.user);
+  console.log("User before",user)
+  const token = useSelector(state => state.userAuth.token)
+  console.log ("Token before",token)
+
+  
   const navigate = useNavigate();
 
   const onLogInClicked = async () => {
+    try {
+      const response = await axios.post('http://localhost:3001/api/v1/user/login', {
+        email: emailValue,
+        password: passwordValue
+      });
 
-    const response = await axios.post('http://localhost:3001/api/v1/user/login', {
-      email: emailValue,
-      password: passwordValue
-    })
-    const {token} = response.data;
+      if (response.status !== 200) {
+        setErrorMessage('Unable to log in. Did you check your credentials?');
+      } else {
+        const emailPayload={email:emailValue}
+        const tokenPayload = {token:response.data.body.token}
+        console.log(emailPayload)
+        console.log(tokenPayload)
+        dispatch(setUser(emailPayload))
+        dispatch(setToken(tokenPayload))
+        console.log("Token set to:", tokenPayload);
+        console.log("user set to:",emailPayload)
+        
 
-    setToken(token);
-    console.log("Token set to:", token)
-    navigate('/user/profile');
-  }
+      }
+    } catch (error) {
+      setErrorMessage('An error occurred. Please try again later.');
+    }
+  };
+
+  console.log("User end",user)
+
+  useEffect(() => {
+    // Check if both user and token are set
+    if (user && token) {
+      navigate('/user/profile');
+    }
+    else {
+      console.log("Error logging")
+    }
+  }, [user]); 
+
+
 
   return (
 
@@ -32,10 +70,10 @@ export  const  LogInPage = () => {
       <section className="sign-in-content">
         <h1>Sign In</h1>
         {errorMessage && <div className="fail">{errorMessage}</div>}
-        <i class="fa fa-user-circle sign-in-icon"></i>
+        <i className="fa fa-user-circle sign-in-icon"></i>
 
         <div className="input-wrapper">
-          <label for="username">Username</label>
+          <label htmlFor="username">username</label>
           <input
             type="email"
             value={emailValue}
@@ -54,8 +92,8 @@ export  const  LogInPage = () => {
             placeholder="password"
           />
         </div>
-        <div class="input-remember">
-            <input type="checkbox" id="remember-me" /><label for="remember-me"
+        <div className="input-remember">
+            <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
               >Remember me</label>
           </div>
 
