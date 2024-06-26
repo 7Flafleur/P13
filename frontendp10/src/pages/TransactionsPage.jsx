@@ -6,8 +6,13 @@ import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch,useSelector } from "react-redux";
+import { useState } from "react";
 
 const TransactionsPage = () => {
+
+    const [infocollapsed,setInfoCollapsed] = useState(false);
+    const [categorycollapsed, setCategoryCollapsed] = useState(false)
+    const [notesinputvisible, setNotesInputVisible] = useState(false)
 
     const imagesContext = require.context('../img', true, /\.(png|jpe?g)$/);
 
@@ -20,9 +25,6 @@ const TransactionsPage = () => {
     const user = useSelector(state => state.userAuth.user);
    
     const token = useSelector(state => state.userAuth.token)
- 
-
-
 
     const dispatch = useDispatch();
 
