@@ -4,6 +4,7 @@ import {LogInPage} from '../pages/LoginPage';
 import SignUpPage from '../pages/SignUpPage.jsx';
 import {UserPage} from '../pages/UserPage';
 import {PrivateOutlet} from '../auth/PrivateOutlet.jsx'
+import TransactionsPage from '../pages/TransactionsPage.jsx';
 
 // import { UserProfile } from './pages/UserInfoPage';
 // import LogInPage from '../src/pages/LoginPage.js';
@@ -20,6 +21,7 @@ export const AppRoutes = () => {
             <Route path='/user/profile' element={<PrivateOutlet/>} > 
             <Route path='/user/profile' element={<UserPage/>}/>
             </Route>
+            <Route path='/user/transactions' element={<TransactionsPage/>}></Route>
 
             <Route path='/user/signup' element={<SignUpPage/>}/>
            
