@@ -4,13 +4,15 @@ import { useToken } from "../auth/useToken";
 
 export const UserPage = () => {
 
+  const [user,setUser] = useState(null);
+
   const navigate= useNavigate();
 
     return (
             
     <main class="main bg-dark">
     <div class="header">
-      <h1>Welcome back<br />Tony Jarvis!</h1>
+      <h1>Welcome back<br />User!</h1>
       <button class="edit-button">Edit Name</button>
       <button className="edit-button"
       onClick={()=>navigate('/')}

@@ -14,16 +14,13 @@ export  const  LogInPage = () => {
 
   const onLogInClicked = async () => {
 
-    // const response = await axios.post('localhost:3001/user/login', {
-    //   email: emailValue,
-    //   password: passwordValue
-    // })
-    // const {token} = response.data;
-    
+    const response = await axios.post('http://localhost:3001/api/v1/user/login', {
+      email: emailValue,
+      password: passwordValue
+    })
+    const {token} = response.data;
 
-    const mockToken = "mockToken123";
-
-    setToken(mockToken);
+    setToken(token);
     console.log("Token set to:", token)
     navigate('/user/profile');
   }
