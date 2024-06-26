@@ -1,10 +1,11 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./transactions.css";
+import {logout} from '../redux/Slices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
 import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { useDispatch } from "react-redux";
+import { useDispatch,useSelector } from "react-redux";
 
 const TransactionsPage = () => {
 
@@ -13,6 +14,14 @@ const TransactionsPage = () => {
     const getImage = (imageName) => {
         return imagesContext(`./${imageName}`).default;
     };
+
+    const navigate = useNavigate();
+
+    const user = useSelector(state => state.userAuth.user);
+   
+    const token = useSelector(state => state.userAuth.token)
+ 
+
 
 
     const dispatch = useDispatch();
