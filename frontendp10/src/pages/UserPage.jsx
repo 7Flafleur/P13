@@ -1,14 +1,26 @@
 import { useState } from "react";
-import { useNavigate } from 'react-router-dom';
+import {Link, useNavigate } from 'react-router-dom';
 import {logout} from '../redux/Slices';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 export const UserPage = () => {
 
+
   
   const user = useSelector(state => state.userAuth.user);
+  const token = useSelector(state=>state.userAuth.token)
 
   const navigate= useNavigate();
+
+  const dispatch = useDispatch();
+
+  const handleLogoutClick = (event) => {
+    dispatch(logout())
+    console.log('Link was clicked.');
+    console.log('User',user)
+    console.log("Token",token)
+    navigate('/')
+  };
 
     return (
             
@@ -16,8 +28,8 @@ export const UserPage = () => {
     <div className="header">
       <h1>Welcome back<br />{user.email}!</h1>
       <button className="edit-button">Edit Name</button>
-      <button className="edit-button"
-      onClick={()=>navigate('/')}
+      <button onClick={handleLogoutClick} className="edit-button"
+      
       >Log out</button>
     </div>
     <h2 className="sr-only">Accounts</h2>
@@ -28,7 +40,7 @@ export const UserPage = () => {
         <p className="account-amount-description">Available Balance</p>
       </div>
       <div className="account-content-wrapper cta">
-        <button className="transaction-button">View transactions</button>
+        <Link to="/user/transactions" className="transaction-button">View transactions</Link>
       </div>
     </section>
     <section className="account">
@@ -38,7 +50,7 @@ export const UserPage = () => {
         <p className="account-amount-description">Available Balance</p>
       </div>
       <div className="account-content-wrapper cta">
-        <button className="transaction-button">View transactions</button>
+      <Link to="/user/transactions" className="transaction-button">View transactions</Link>
       </div>
     </section>
     <section className="account">
@@ -48,7 +60,7 @@ export const UserPage = () => {
         <p className="account-amount-description">Current Balance</p>
       </div>
       <div className="account-content-wrapper cta">
-        <button onClick={navigate('/user/transactions')} className="transaction-button">View transactions</button>
+      <Link to="/user/transactions" className="transaction-button">View transactions</Link>
       </div>
     </section>
   </main>

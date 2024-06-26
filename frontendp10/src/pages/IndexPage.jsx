@@ -1,7 +1,8 @@
-import React from 'react';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import {Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
@@ -14,6 +15,14 @@ export const IndexPage = () => {
   const getImage = (imageName) => {
     return imagesContext(`./${imageName}`).default;
   };
+
+  const user = useSelector(state => state.userAuth.user)
+  const token = useSelector(state=>state.userAuth.token)
+
+  console.log("Index user",user)
+  console.log('Index token',token)
+
+
 
 
   return (
@@ -28,10 +37,10 @@ export const IndexPage = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </Link>
         <div>
-          <a className="main-nav-item" href="./login">
+          <Link to="/login" className="main-nav-item" href="./login">
             <FontAwesomeIcon icon={faUserCircle} />
             Sign In
-          </a>
+          </Link>
         </div>
       </nav>
       <main>

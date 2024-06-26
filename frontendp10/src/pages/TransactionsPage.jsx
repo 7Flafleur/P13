@@ -3,6 +3,7 @@ import "./transactions.css";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import { faPencilAlt } from '@fortawesome/free-solid-svg-icons';
+import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 
 const TransactionsPage = () => {
 
@@ -22,7 +23,7 @@ const TransactionsPage = () => {
                 <div className="logo">ARGENTBANK</div>
                 <div className="user-info">
                     <span>Tony</span>
-                    <button>Sign out</button>
+                    <Link to="/"><FontAwesomeIcon icon={faSignOutAlt} /></Link>
                 </div>
             </header>
             <section className="balance-section">
