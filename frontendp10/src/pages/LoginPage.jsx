@@ -1,7 +1,7 @@
 import { useState,useEffect } from "react";
 import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { useToken } from "../auth/useToken";
+
 import {  setToken, setUser } from '../redux/Slices';
 import {useDispatch, useSelector} from 'react-redux';
 import argentbanklogo from "../img/argentBankLogo.png"
@@ -34,13 +34,14 @@ export  const  LogInPage = () => {
       
         const emailPayload={email:emailValue}
         const tokenPayload = {token:response.data.body.token}
-        console.log(emailPayload)
-        console.log(tokenPayload)
+        // console.log(emailPayload)
+        // console.log(tokenPayload)
         dispatch(setUser(emailPayload))
         dispatch(setToken(tokenPayload))
         // console.log("Token set to:", tokenPayload);
         // console.log("user set to:",emailPayload)
         
+        console.log("Login REsponse",response.data)
 
       
     } catch (error) {
@@ -55,7 +56,13 @@ export  const  LogInPage = () => {
         setErrorMessage(`An error occurred: ${error.response.status}. Please try again later.`);
       }
     }
+
+    
+
+
   };
+
+
 
   // console.log("User end",user)
 

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {Link, useNavigate } from 'react-router-dom';
 import {logout} from '../redux/Slices';
 import {   setUser } from '../redux/Slices';
@@ -16,6 +16,9 @@ export const UserPage = () => {
   const user = useSelector(state => state.userAuth.user);
   const token = useSelector(state=>state.userAuth.token.token);
 
+  console.log("First token",token)
+
+
   // console.log("User",user)
   // console.log("Token",token)
 
@@ -23,11 +26,51 @@ export const UserPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
+  const [realUser,setReaUser] = useState(null);
+  const [userInfo, setUserInfo] = useState(null)
 
 
   const navigate= useNavigate();
 
   const dispatch = useDispatch();
+
+
+
+  const fetchUserData = async () => {
+    console.log("Current token:", token); // Debugging the token value
+    try {
+      const response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log("Authorization Header: ", `Bearer ${token}`);
+      console.log("Response", response.data.body);
+
+const firstNamePayload = {firstName:response.data.body.firstName}
+
+const lastNamePayload = {lastName: response.data.body.lastName}
+dispatch(setUser(firstNamePayload))
+dispatch(setUser(lastNamePayload))
+
+console.log("user",user)
+
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
+    }
+
+    
+
+
+
+  };
+ 
+
+
+
+
 
   const handleLogoutClick = (event) => {
     dispatch(logout())
@@ -64,7 +107,7 @@ export const UserPage = () => {
       dispatch(setUser(firstNamePayload))
       dispatch(setUser(lastNamePayload))
 
-      
+      setEditVisible(!editVisible)
 
     }
 
@@ -75,7 +118,7 @@ export const UserPage = () => {
 
   }
 
-  console.log("User new",user)
+  // console.log("User new",user)
 
 
     return (
@@ -99,7 +142,7 @@ export const UserPage = () => {
     </nav>    
     <main className="main bg-dark">
     <div className="header">
-      <h1>Welcome back<br />{user.email}!</h1>
+      <h1>Welcome back {user.firstName || user.lastName? "" :"!"} <br /> {user.firstName} {user.lastName}{user.firstName || user.lastName? "!" :""} </h1>
 <div className={`edit-name-content ${editVisible ? "visible" : ""}`}>
   
   <div className="editName-fields">
@@ -124,10 +167,12 @@ export const UserPage = () => {
   </div>
   <div className=" editName-buttons">
           <button className="editName edit-button" onClick={onSaveNameClicked}>Save</button>
-          <button className="editName edit-button">Cancel</button>
+          <button className="editName edit-button" onClick={onEditNameClicked}>Cancel</button>
         </div>
 </div>
       <button className="edit-button" onClick={onEditNameClicked}>Edit Name</button>
+      <button className="edit-button" onClick={fetchUserData}>User data</button>
+
    
  
     </div>
