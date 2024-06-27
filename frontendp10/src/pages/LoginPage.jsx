@@ -4,6 +4,7 @@ import axios from 'axios';
 import { useToken } from "../auth/useToken";
 import {  setToken, setUser } from '../redux/Slices';
 import {useDispatch, useSelector} from 'react-redux';
+import argentbanklogo from "../img/argentBankLogo.png"
 
 
 export  const  LogInPage = () => {
@@ -77,17 +78,12 @@ export  const  LogInPage = () => {
       <Link to="/" className="main-nav-logo" href="">
         <img
           className="main-nav-logo-image"
-          src="./img/argentBankLogo.png"
+          src={argentbanklogo}
           alt="Argent Bank Logo"
         />
         <h1 className="sr-only">Argent Bank</h1>
       </Link>
-      <div>
-        <a className="main-nav-item" href="">
-          <i id="loginuser" class="fa fa-user-circle"></i>
-          Sign In
-        </a>
-      </div>
+
     </nav>
 
 
