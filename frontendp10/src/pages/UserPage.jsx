@@ -1,10 +1,12 @@
 import { useState } from "react";
 import {Link, useNavigate } from 'react-router-dom';
 import {logout} from '../redux/Slices';
-import { useDispatch, useSelector } from 'react-redux';
+import {   setUser } from '../redux/Slices';
+import {useDispatch, useSelector} from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import  argentbanklogo from '../img/argentBankLogo.png';
+import axios from "axios";
 
 
 export const UserPage = () => {
@@ -12,9 +14,16 @@ export const UserPage = () => {
 
   
   const user = useSelector(state => state.userAuth.user);
-  const token = useSelector(state=>state.userAuth.token);
+  const token = useSelector(state=>state.userAuth.token.token);
+
+  // console.log("User",user)
+  // console.log("Token",token)
 
   const [editVisible, setEditVisible] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [firstNameValue, setFirstNameValue] = useState('');
+  const [lastNameValue, setLastNameValue] = useState('');
+
 
   const navigate= useNavigate();
 
@@ -28,12 +37,45 @@ export const UserPage = () => {
     navigate('/')
   };
 
+  const onEditNameClicked = () =>{
+    setEditVisible(!editVisible)
+  }
 
-  const editName = () =>{
+  const onSaveNameClicked = async () =>{
 
+    try{
+
+      const response= await axios.put('http://localhost:3001/api/v1/user/profile',
+        {
+          firstName:firstNameValue,
+          lastName:lastNameValue
+        },
+        {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        }
+      );
+
+      console.log("Authorization Header: ", `Bearer ${token}`);
+      const firstNamePayload = {firstName:firstNameValue}
+      console.log(firstNameValue)
+      const lastNamePayload = {lastName: lastNameValue}
+      dispatch(setUser(firstNamePayload))
+      dispatch(setUser(lastNamePayload))
+
+      
+
+    }
+
+    catch(error){
+      setErrorMessage(`An error occurred: ${error.response.status}. Please try again later.`);
+
+    }
 
   }
 
+  console.log("User new",user)
 
 
     return (
@@ -58,15 +100,15 @@ export const UserPage = () => {
     <main className="main bg-dark">
     <div className="header">
       <h1>Welcome back<br />{user.email}!</h1>
-<div className="edit-name-content">
+<div className={`edit-name-content ${editVisible ? "visible" : ""}`}>
   
   <div className="editName-fields">
     <div className="input-wrapper">
         <label htmlFor="username"></label>
         <input
           type="text"
-          // value={newFirstNameValue}
-          // onChange={editName(firstname)}
+           value={firstNameValue}
+           onChange={e=>setFirstNameValue(e.target.value)}      
           placeholder="First name" className="name"
         />
       </div>
@@ -74,18 +116,18 @@ export const UserPage = () => {
         <label htmlFor="username"></label>
         <input
           type="text"
-          // value={newLastNameValue}
-          // onChange={editName(lastname)}
+          value={lastNameValue}
+          onChange={e=>setLastNameValue(e.target.value)}     
           placeholder="Last name" className="name"
         />
         </div>
   </div>
   <div className=" editName-buttons">
-          <button className="editName edit-button">Save</button>
+          <button className="editName edit-button" onClick={onSaveNameClicked}>Save</button>
           <button className="editName edit-button">Cancel</button>
         </div>
 </div>
-      <button className="edit-button">Edit Name</button>
+      <button className="edit-button" onClick={onEditNameClicked}>Edit Name</button>
    
  
     </div>

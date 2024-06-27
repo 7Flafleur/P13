@@ -188,10 +188,11 @@ body, .body {
   padding: 2rem;
 }
 
-.edit-name-content{
-  border: solid white 2px;
+.edit-name-content {
+  /* border: solid white 2px; */
+  display: none;
   box-sizing: border-box;
-  display: flex;
+ 
   flex-direction: column;
   align-items: center;
   padding:1rem;
@@ -201,6 +202,12 @@ body, .body {
 
 
 }
+
+.visible{
+  display: flex;
+}
+
+
 
 .editName-buttons{
   /* border: red solid 1px; */

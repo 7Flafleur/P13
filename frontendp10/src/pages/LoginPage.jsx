@@ -17,9 +17,9 @@ export  const  LogInPage = () => {
   const [passwordValue, setPasswordValue] = useState('');
 
   const user = useSelector(state => state.userAuth.user);
-  console.log("User before",user)
+  // console.log("User before",user)
   const token = useSelector(state => state.userAuth.token)
-  console.log ("Token before",token)
+  // console.log ("Token before",token)
 
   
   const navigate = useNavigate();
@@ -38,8 +38,8 @@ export  const  LogInPage = () => {
         console.log(tokenPayload)
         dispatch(setUser(emailPayload))
         dispatch(setToken(tokenPayload))
-        console.log("Token set to:", tokenPayload);
-        console.log("user set to:",emailPayload)
+        // console.log("Token set to:", tokenPayload);
+        // console.log("user set to:",emailPayload)
         
 
       
@@ -57,17 +57,15 @@ export  const  LogInPage = () => {
     }
   };
 
-  console.log("User end",user)
+  // console.log("User end",user)
 
   useEffect(() => {
     // Check if both user and token are set
     if (user && token) {
       navigate('/user/profile');
     }
-    else {
-      console.log("Error logging")
-    }
-  }, [user]); 
+   
+  }, [token]); 
 
 
 
