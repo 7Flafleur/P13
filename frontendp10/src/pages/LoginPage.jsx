@@ -24,6 +24,38 @@ export  const  LogInPage = () => {
   
   const navigate = useNavigate();
 
+  const fetchUserData =  () => {
+    console.log("Current token:", token); // Debugging the token value
+    try {
+      const response =  axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log("Authorization Header: ", `Bearer ${token}`);
+      console.log("Response", response.data.body);
+
+const firstNamePayload = {firstName:response.data.body.firstName}
+
+const lastNamePayload = {lastName: response.data.body.lastName}
+dispatch(setUser(firstNamePayload))
+dispatch(setUser(lastNamePayload))
+
+console.log("user",user)
+
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
+    }
+
+    
+
+
+
+  };
+ 
+
   const onLogInClicked = async () => {
     try {
       const response = await axios.post('http://localhost:3001/api/v1/user/login', {
@@ -59,7 +91,10 @@ export  const  LogInPage = () => {
 
     
 
-
+fetchUserData();
+  
+  
+  
   };
 
 

@@ -26,8 +26,7 @@ export const UserPage = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
-  const [realUser,setReaUser] = useState(null);
-  const [userInfo, setUserInfo] = useState(null)
+
 
 
   const navigate= useNavigate();
@@ -68,10 +67,13 @@ console.log("user",user)
   };
  
 
-
-
-
-
+  useEffect( async () => {
+    if (token) { 
+      await fetchUserData();
+    } else {
+      console.log("Token not available yet");
+    }
+  }, []); 
   const handleLogoutClick = (event) => {
     dispatch(logout())
     console.log('Link was clicked.');
