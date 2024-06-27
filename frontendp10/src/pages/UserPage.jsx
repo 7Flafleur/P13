@@ -23,7 +23,7 @@ export const UserPage = () => {
   };
 
     return (
-            
+     <body>     
     <main className="main bg-dark">
     <div className="header">
       <h1>Welcome back<br />{user.email}!</h1>
@@ -64,6 +64,11 @@ export const UserPage = () => {
       </div>
     </section>
   </main>
+  <footer class="footer">
+      <p class="footer-text">Copyright 2020 Argent Bank</p>
+    </footer>
+    </body>
+  
 
     )
 

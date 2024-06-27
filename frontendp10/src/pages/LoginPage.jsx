@@ -1,5 +1,5 @@
 import { useState,useEffect } from "react";
-import { useNavigate } from 'react-router-dom';
+import { Link,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import { useToken } from "../auth/useToken";
 import {  setToken, setUser } from '../redux/Slices';
@@ -72,15 +72,34 @@ export  const  LogInPage = () => {
 
   return (
 
+    <div className="body">
+        <nav className="main-nav">
+      <Link to="/" className="main-nav-logo" href="">
+        <img
+          className="main-nav-logo-image"
+          src="./img/argentBankLogo.png"
+          alt="Argent Bank Logo"
+        />
+        <h1 className="sr-only">Argent Bank</h1>
+      </Link>
+      <div>
+        <a className="main-nav-item" href="">
+          <i id="loginuser" class="fa fa-user-circle"></i>
+          Sign In
+        </a>
+      </div>
+    </nav>
+
+
     <div className="main bg-dark">
 
       <section className="sign-in-content">
-        <h1>Sign In</h1>
+        <h1 className="loginsignin">Sign In</h1>
         {errorMessage && <div className="fail">{errorMessage}</div>}
         <i className="fa fa-user-circle sign-in-icon"></i>
 
         <div className="input-wrapper">
-          <label htmlFor="username">username</label>
+          <label htmlFor="username"></label>
           <input
             type="email"
             value={emailValue}
@@ -114,6 +133,13 @@ export  const  LogInPage = () => {
         <button className="sign-up-button" onClick={() => navigate('/user/signup')}>Sign Up</button>
          */}
       </section>
+    </div>
+    
+    <footer className="footer">
+      <p className="footer-text">Copyright 2020 Argent Bank</p>
+    </footer>
+
+
     </div>
   );
 }

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import "./transactions.css";
+// import "./transactions.css";
 import {logout} from '../redux/Slices';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons';

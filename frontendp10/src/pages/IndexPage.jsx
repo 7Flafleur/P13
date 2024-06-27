@@ -3,6 +3,12 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
 import {Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
+import  argentbanklogo from '../img/argentBankLogo.png';
+import banktree from "../img/bank-tree.jpeg";
+import chaticon from "../img/icon-chat.png";
+import moneyicon from '../img/icon-money.png';
+import securityicon from '../img/icon-security.png';
+
 
 
 
@@ -10,11 +16,6 @@ import { useSelector } from 'react-redux';
 
 export const IndexPage = () => {
 
-  const imagesContext = require.context('../img', true, /\.(png|jpe?g)$/);
-
-  const getImage = (imageName) => {
-    return imagesContext(`./${imageName}`).default;
-  };
 
   const user = useSelector(state => state.userAuth.user)
   const token = useSelector(state=>state.userAuth.token)
@@ -23,15 +24,13 @@ export const IndexPage = () => {
   console.log('Index token',token)
 
 
-
-
   return (
     <>
       <nav className="main-nav">
       <Link className="main-nav-logo" to="/">
           <img
             className="main-nav-logo-image"
-            src="./img/argentBankLogo.png"
+            src={argentbanklogo}
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
@@ -56,7 +55,7 @@ export const IndexPage = () => {
         <section className="features">
           <h2 className="sr-only">Features</h2>
           <div className="feature-item">
-            <img src="./img/icon-chat.png" alt="Chat Icon" className="feature-icon" />
+            <img src={chaticon} alt="Chat Icon" className="feature-icon" />
             <h3 className="feature-item-title">You are our #1 priority</h3>
             <p>
               Need to talk to a representative? You can get in touch through our
@@ -65,7 +64,7 @@ export const IndexPage = () => {
           </div>
           <div className="feature-item">
             <img
-              src="./img/icon-money.png"
+              src={moneyicon}
               alt="Money Icon"
               className="feature-icon"
             />
@@ -76,7 +75,7 @@ export const IndexPage = () => {
           </div>
           <div className="feature-item">
             <img
-              src="./img/icon-security.png"
+              src={securityicon}
               alt="Security Icon"
               className="feature-icon"
             />
