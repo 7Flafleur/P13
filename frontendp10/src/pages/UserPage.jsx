@@ -61,28 +61,28 @@ export const UserPage = () => {
 <div className="edit-name-content">
   
   <div className="editName-fields">
-    <div className="">
+    <div className="input-wrapper">
         <label htmlFor="username"></label>
         <input
           type="text"
           // value={newFirstNameValue}
           // onChange={editName(firstname)}
-          placeholder="First name" id="firstname"
+          placeholder="First name" className="name"
         />
       </div>
-      <div className="">
+      <div className="input-wrapper">
         <label htmlFor="username"></label>
         <input
           type="text"
           // value={newLastNameValue}
           // onChange={editName(lastname)}
-          placeholder="Last name" id="lastname"
+          placeholder="Last name" className="name"
         />
         </div>
   </div>
   <div className=" editName-buttons">
-          <button className="edit-button">Save</button>
-          <button className="edit-button">cancel</button>
+          <button className="editName edit-button">Save</button>
+          <button className="editName edit-button">Cancel</button>
         </div>
 </div>
       <button className="edit-button">Edit Name</button>

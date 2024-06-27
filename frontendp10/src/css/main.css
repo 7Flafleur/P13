@@ -195,20 +195,38 @@ body, .body {
   flex-direction: column;
   align-items: center;
   padding:1rem;
+  width:50%;
+  margin-left: auto;
+  margin-right: auto;
+
 
 }
 
 .editName-buttons{
-  border: red solid 1px;
+  /* border: red solid 1px; */
   display: flex;
-  gap: 2rem;
+width:40%;
+justify-content: space-between;
 }
 
 .editName-fields{
-  border:greenyellow solid 1px;
+  /* border:greenyellow solid 1px; */
   display: flex;
-  gap: 1rem;
+  justify-content: center;
+gap: 1rem;
+width:35% ;
+  
   padding-bottom: 1rem;
+}
+
+.editName{
+  width:47%;
+}
+
+.name{
+  width: 10rem;
+  padding: 1rem;
+
 }
 
 
