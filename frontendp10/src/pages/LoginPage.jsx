@@ -19,15 +19,15 @@ export  const  LogInPage = () => {
   const user = useSelector(state => state.userAuth.user);
   // console.log("User before",user)
   const token = useSelector(state => state.userAuth.token)
-  // console.log ("Token before",token)
+  console.log ("Token before",token)
 
   
   const navigate = useNavigate();
 
-  const fetchUserData =  () => {
+  const fetchUserData = async (token) => {
     console.log("Current token:", token); // Debugging the token value
     try {
-      const response =  axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+      const response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -36,7 +36,6 @@ export  const  LogInPage = () => {
       console.log("Response", response.data.body);
 
 const firstNamePayload = {firstName:response.data.body.firstName}
-
 const lastNamePayload = {lastName: response.data.body.lastName}
 dispatch(setUser(firstNamePayload))
 dispatch(setUser(lastNamePayload))
@@ -49,14 +48,12 @@ console.log("user",user)
       setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
     }
 
-    
-
-
-
   };
  
 
+
   const onLogInClicked = async () => {
+    console.log("Login clicked")
     try {
       const response = await axios.post('http://localhost:3001/api/v1/user/login', {
         email: emailValue,
@@ -70,46 +67,45 @@ console.log("user",user)
         // console.log(tokenPayload)
         dispatch(setUser(emailPayload))
         dispatch(setToken(tokenPayload))
-        // console.log("Token set to:", tokenPayload);
+        console.log("Token set to:", tokenPayload);
+        await fetchUserData(response.data.body.token);
         // console.log("user set to:",emailPayload)
         
-        console.log("Login REsponse",response.data)
+        console.log("Login Response",response.data)
 
       
-    } catch (error) {
-      if(error.response.status === 400)
-        {
-          setErrorMessage('Unable to log in. Did you check your credentials?');
+    } 
+    catch (error) {
+      let errorMessage = 'An unexpected error occurred. Please try again later.';
+      if (error.response) {
+        switch (error.response.status) {
+          case 400:
+            errorMessage = 'Unable to log in. Did you check your credentials?';
+            break;
+          case 500:
+            errorMessage = 'Server error. Please try again later.';
+            break;
+          default:
+            errorMessage = `An error occurred: ${error.response.status}. Please try again later.`;
         }
-       else if (error.response.status === 500) {
-        setErrorMessage('Server error. Please try again later.');
+      } else if (error.request) {
+        // The request was made but no response was received
+        errorMessage = 'No response from server. Please check your network connection.';
       } else {
-        
-        setErrorMessage(`An error occurred: ${error.response.status}. Please try again later.`);
+        // Something happened in setting up the request that triggered an Error
+        errorMessage = error.message;
       }
+      setErrorMessage(errorMessage);
     }
 
+      navigate('/user/profile');
     
-
-fetchUserData();
-  
-  
   
   };
 
 
 
   // console.log("User end",user)
-
-  useEffect(() => {
-    // Check if both user and token are set
-    if (user && token) {
-      navigate('/user/profile');
-    }
-   
-  }, [token]); 
-
-
 
   return (
 

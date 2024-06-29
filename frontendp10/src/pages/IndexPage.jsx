@@ -20,8 +20,8 @@ export const IndexPage = () => {
   const user = useSelector(state => state.userAuth.user)
   const token = useSelector(state=>state.userAuth.token)
 
-  console.log("Index user",user)
-  console.log('Index token',token)
+  // console.log("Index user",user)
+  // console.log('Index token',token)
 
 
   return (

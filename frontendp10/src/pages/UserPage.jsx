@@ -16,7 +16,7 @@ export const UserPage = () => {
   const user = useSelector(state => state.userAuth.user);
   const token = useSelector(state=>state.userAuth.token.token);
 
-  console.log("First token",token)
+  // console.log("First token",token)
 
 
   // console.log("User",user)
@@ -30,50 +30,9 @@ export const UserPage = () => {
 
 
   const navigate= useNavigate();
-
   const dispatch = useDispatch();
 
 
-
-  const fetchUserData = async () => {
-    console.log("Current token:", token); // Debugging the token value
-    try {
-      const response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      console.log("Authorization Header: ", `Bearer ${token}`);
-      console.log("Response", response.data.body);
-
-const firstNamePayload = {firstName:response.data.body.firstName}
-
-const lastNamePayload = {lastName: response.data.body.lastName}
-dispatch(setUser(firstNamePayload))
-dispatch(setUser(lastNamePayload))
-
-console.log("user",user)
-
-
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
-    }
-
-    
-
-
-
-  };
- 
-
-  useEffect( async () => {
-    if (token) { 
-      await fetchUserData();
-    } else {
-      console.log("Token not available yet");
-    }
-  }, []); 
   const handleLogoutClick = (event) => {
     dispatch(logout())
     console.log('Link was clicked.');
@@ -104,7 +63,7 @@ console.log("user",user)
 
       console.log("Authorization Header: ", `Bearer ${token}`);
       const firstNamePayload = {firstName:firstNameValue}
-      console.log(firstNameValue)
+      // console.log(firstNameValue)
       const lastNamePayload = {lastName: lastNameValue}
       dispatch(setUser(firstNamePayload))
       dispatch(setUser(lastNamePayload))
@@ -121,7 +80,32 @@ console.log("user",user)
   }
 
   // console.log("User new",user)
+  const fetchUserData = async (token) => {
+    console.log("Current token:", token); // Debugging the token value
+    try {
+      const response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      console.log("Authorization Header: ", `Bearer ${token}`);
+      console.log("Response", response.data.body);
 
+const firstNamePayload = {firstName:response.data.body.firstName}
+const lastNamePayload = {lastName: response.data.body.lastName}
+dispatch(setUser(firstNamePayload))
+dispatch(setUser(lastNamePayload))
+
+console.log("user",user)
+
+
+    } catch (error) {
+      console.error("Error fetching user data:", error);
+      setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
+    }
+
+  };
+ 
 
     return (
 
@@ -173,7 +157,7 @@ console.log("user",user)
         </div>
 </div>
       <button className="edit-button" onClick={onEditNameClicked}>Edit Name</button>
-      <button className="edit-button" onClick={fetchUserData}>User data</button>
+      {/* <button className="edit-button" onClick={fetchUserData}>User data</button> */}
 
    
  
