@@ -1,0 +1,150 @@
+openapi: 3.0.0
+info:
+  title: Bank API
+  description: API documentation for potential Bank API endpoints
+  version: 1.0.0
+servers:
+  - url: http://localhost:3001/api/v1
+paths:
+  /user/transactions/overview:
+    get:
+      summary: View balance of all accounts
+      tags: 
+        - Overview
+      security:
+        - bearerAuth: []
+      responses:
+        '200': 
+          description: Operation successful
+        '401':
+          description: Unauthorized
+
+  /user/transactions/detail/{accountId}:
+    get:
+      summary: View details of account
+      tags: 
+        - Account Details
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          schema:
+            type: string
+          description: The ID of the account to view details for
+      responses:
+        '200': 
+          description: Operation successful
+        '401':
+          description: Unauthorized
+
+  /user/transactions/detail/{accountId}/category:
+    post:
+      summary: Add items to Select Dropdown
+      tags: 
+        - Category
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          schema:
+            type: string
+          description: The ID of the account to add category to
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                category:
+                  type: string
+      responses:
+        '200': 
+          description: Operation successful
+        '401':
+          description: Unauthorized
+
+  /user/transactions/detail/{accountId}/notes:
+    post:
+      summary: Add notes via text input
+      tags: 
+        - Notes
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          schema:
+            type: string
+          description: The ID of the account to add notes to
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                notes:
+                  type: string
+      responses:
+        '200': 
+          description: Operation successful
+        '401':
+          description: Unauthorized
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+  schemas:
+    AccountOverview:
+      properties:
+        accountName: 
+          type: string
+          description: Account name
+        availableBalance: 
+          type: number
+          description: Account Balance
+    AccountDetails:
+      properties:
+        accountName: 
+          type: string
+          description: Account Name
+        availableBalance: 
+          type: number
+          description: Account Balance
+        transactions: 
+          type: array
+          items:
+            type: object
+            properties:
+              transactionDate:
+                type: string
+                format: date
+                description: Date of the transaction
+              transactionDescription:
+                type: string
+                description: Description of transaction
+              amount:
+                type: number
+                description: Transaction amount
+              newBalance: 
+                type: number
+                description: New Balance after traansaction
+              transactionType:
+                type: string
+                description: Decription of Type of Transaction
+              transactionCategory:
+                type: string
+                description: Description of Transaction Category
+              transactionNotes:
+                type: string
+                description: Additional Information about Transaction
+

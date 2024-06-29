@@ -5,6 +5,7 @@ import SignUpPage from '../pages/SignUpPage.jsx';
 import {UserPage} from '../pages/UserPage';
 import {PrivateOutlet} from '../auth/PrivateOutlet.jsx'
 import TransactionsPage from '../pages/TransactionsPage.jsx';
+import SwaggerDoc from '../pages/SwaggerUi.jsx';
 
 // import { UserProfile } from './pages/UserInfoPage';
 // import LogInPage from '../src/pages/LoginPage.js';
@@ -24,6 +25,7 @@ export const AppRoutes = () => {
             <Route path='/user/transactions' element={<TransactionsPage/>}></Route>
 
             <Route path='/user/signup' element={<SignUpPage/>}/>
+            <Route path='api-docs' element={<SwaggerDoc/>}/>
            
             </Routes>
         </Router>
