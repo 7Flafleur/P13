@@ -1,8 +1,14 @@
 openapi: 3.0.0
+
 info:
-  title: Bank API
+  title: ARGENT Bank API
   description: API documentation for potential Bank API endpoints
   version: 1.0.0
+  termsOfService: 'http://swagger.io/terms/'
+host: localhost:3001
+basePath: /api/v1
+schemes:
+  - http
 servers:
   - url: http://localhost:3001/api/v1
 paths:
@@ -13,6 +19,12 @@ paths:
         - Overview
       security:
         - bearerAuth: []
+      parameters:
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+
       responses:
         '200': 
           description: Operation successful
@@ -32,10 +44,16 @@ paths:
           required: true
           schema:
             type: string
-          description: The ID of the account to view details for
+          description: The ID of the account to view details for specific account
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true       
       responses:
         '200': 
           description: Operation successful
+          schema:
+            $ref: '#/definitions/ApiResponse'
         '401':
           description: Unauthorized
 
@@ -53,6 +71,10 @@ paths:
           schema:
             type: string
           description: The ID of the account to add category to
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
       requestBody:
         required: true
         content:
@@ -75,6 +97,7 @@ paths:
         - Notes
       security:
         - bearerAuth: []
+
       parameters:
         - in: path
           name: accountId
@@ -82,6 +105,11 @@ paths:
           schema:
             type: string
           description: The ID of the account to add notes to
+          
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
       requestBody:
         required: true
         content:
@@ -148,3 +176,25 @@ components:
                 type: string
                 description: Additional Information about Transaction
 
+    AccountDetail:
+      type: object
+      properties:
+        accountId:
+          type: string
+        balance:
+          type: number
+        transactions:
+          type: array
+          items:
+            $ref: '#/components/schemas/TransactionDetail'
+    TransactionDetail:
+      type: object
+      properties:
+        transactionId:
+          type: string
+        amount:
+          type: number
+        date:
+          type: string
+        type:
+          type: string
