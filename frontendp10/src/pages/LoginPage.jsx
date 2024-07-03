@@ -19,43 +19,16 @@ export const LogInPage = () => {
   const user = useSelector(state => state.userAuth.user);
   // console.log("User before",user)
   const token = useSelector(state => state.userAuth.token)
-  console.log("Token before", token)
+  // console.log("Token before", token)
 
 
   const navigate = useNavigate();
 
-  const fetchUserData = async (token) => {
-    console.log("Current token:", token); // Debugging the token value
-    try {
-      const response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      });
-      console.log("Authorization Header: ", `Bearer ${token}`);
-      console.log("Response", response.data.body);
-
-      const firstNamePayload = { firstName: response.data.body.firstName }
-      const lastNamePayload = { lastName: response.data.body.lastName }
-      dispatch(setUser(firstNamePayload))
-      dispatch(setUser(lastNamePayload))
-
-      console.log("user", user)
-
-
-    } catch (error) {
-      console.error("Error fetching user data:", error);
-      setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
-    }
-
-
-
-  };
 
 
 
   const onLogInClicked = async () => {
-    console.log("Login clicked")
+    // console.log("Login clicked")
     try {
       const response = await axios.post('http://localhost:3001/api/v1/user/login', {
         email: emailValue,
@@ -69,12 +42,13 @@ export const LogInPage = () => {
       // console.log(tokenPayload)
       dispatch(setUser(emailPayload))
       dispatch(setToken(tokenPayload))
+      sessionStorage.setItem('token', tokenPayload.token);
 
-      console.log("Token set to:", tokenPayload);
+      // console.log("Token set to:", tokenPayload.token);
       
       // console.log("user set to:",emailPayload)
 
-      console.log("Login Response", response.data)
+      // console.log("Login Response", response.data)
 
 navigate("/user/profile")
     }

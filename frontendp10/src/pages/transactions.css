@@ -1,0 +1,104 @@
+.transactions-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.transactions-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.transactions-logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #42b983;
+}
+
+.transactions-user-info {
+  display: flex;
+  align-items: center;
+}
+
+.transactions-user-info span {
+  margin-right: 10px;
+}
+
+.transactions-balance-section {
+  background-color: #fff;
+  padding: 20px;
+  margin: 20px 0;
+  text-align: center;
+}
+
+.transactions-balance-section h2 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.transactions-balance-section h1 {
+  margin: 10px 0;
+  font-size: 2.5rem;
+}
+
+.transactions-balance-section p {
+  margin: 0;
+  font-size: 1rem;
+  color: #999;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+.transactions-table th,
+.transactions-table td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+.transactions-table th {
+  background-color: #f9f9f9;
+  font-weight: bold;
+}
+
+.transaction-details {
+  padding: 10px 0;
+}
+
+.transaction-details div {
+  margin-bottom: 5px;
+}
+
+.transaction-details .icon-edit {
+  margin-left: 5px;
+  cursor: pointer;
+}
+
+.notes-input {
+  width: 100%;
+  padding: 5px;
+  font-size: 1rem;
+}
+
+.transactions-footer {
+  display: flex;
+  justify-content: center;
+  border-top: 1px solid #ddd;
+  padding: 20px 0;
+}
+
+.transactions-footer p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #999;
+}
