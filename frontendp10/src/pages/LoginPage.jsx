@@ -48,6 +48,8 @@ export const LogInPage = () => {
       setErrorMessage(`An error occurred: ${error.response ? error.response.status : error}. Please try again later.`);
     }
 
+
+
   };
 
 
@@ -67,13 +69,14 @@ export const LogInPage = () => {
       // console.log(tokenPayload)
       dispatch(setUser(emailPayload))
       dispatch(setToken(tokenPayload))
+
       console.log("Token set to:", tokenPayload);
       
       // console.log("user set to:",emailPayload)
 
       console.log("Login Response", response.data)
 
-
+navigate("/user/profile")
     }
     catch (error) {
       console.log("error received",error.response.status)
@@ -105,6 +108,8 @@ export const LogInPage = () => {
       }
  
     }
+
+    
 
   };
 
