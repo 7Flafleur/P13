@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import { useToken } from "../auth/useToken";
+
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUpPage() {
