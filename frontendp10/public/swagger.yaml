@@ -4,7 +4,7 @@ info:
   title: ARGENT Bank API
   description: API documentation for potential Bank API endpoints
   version: 1.0.0
-  termsOfService: 'http://swagger.io/terms/'
+  termsOfService: "http://swagger.io/terms/"
 host: localhost:3001
 basePath: /api/v1
 schemes:
@@ -15,7 +15,7 @@ paths:
   /user/transactions/overview:
     get:
       summary: View balance of all accounts
-      tags: 
+      tags:
         - Overview
       security:
         - bearerAuth: []
@@ -26,15 +26,15 @@ paths:
           required: true
 
       responses:
-        '200': 
+        "200":
           description: Operation successful
-        '401':
+        "401":
           description: Unauthorized
 
   /user/transactions/detail/{accountId}:
     get:
       summary: View details of account
-      tags: 
+      tags:
         - Account Details
       security:
         - bearerAuth: []
@@ -48,19 +48,19 @@ paths:
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
-          required: true       
+          required: true
       responses:
-        '200': 
+        "200":
           description: Operation successful
           schema:
-            $ref: '#/definitions/ApiResponse'
-        '401':
+            $ref: "#/definitions/ApiResponse"
+        "401":
           description: Unauthorized
 
   /user/transactions/detail/{accountId}/category:
     post:
       summary: Add items to Select Dropdown
-      tags: 
+      tags:
         - Category
       security:
         - bearerAuth: []
@@ -85,15 +85,15 @@ paths:
                 category:
                   type: string
       responses:
-        '200': 
+        "200":
           description: Operation successful
-        '401':
+        "401":
           description: Unauthorized
 
   /user/transactions/detail/{accountId}/notes:
     post:
       summary: Add notes via text input
-      tags: 
+      tags:
         - Notes
       security:
         - bearerAuth: []
@@ -105,7 +105,7 @@ paths:
           schema:
             type: string
           description: The ID of the account to add notes to
-          
+
         - in: header
           name: Authorization
           description: Attach Bearer JWT token
@@ -120,9 +120,9 @@ paths:
                 notes:
                   type: string
       responses:
-        '200': 
+        "200":
           description: Operation successful
-        '401':
+        "401":
           description: Unauthorized
 
 components:
@@ -134,21 +134,21 @@ components:
   schemas:
     AccountOverview:
       properties:
-        accountName: 
+        accountName:
           type: string
           description: Account name
-        availableBalance: 
+        availableBalance:
           type: number
           description: Account Balance
     AccountDetails:
       properties:
-        accountName: 
+        accountName:
           type: string
           description: Account Name
-        availableBalance: 
+        availableBalance:
           type: number
           description: Account Balance
-        transactions: 
+        transactions:
           type: array
           items:
             type: object
@@ -163,7 +163,7 @@ components:
               amount:
                 type: number
                 description: Transaction amount
-              newBalance: 
+              newBalance:
                 type: number
                 description: New Balance after traansaction
               transactionType:
@@ -186,7 +186,7 @@ components:
         transactions:
           type: array
           items:
-            $ref: '#/components/schemas/TransactionDetail'
+            $ref: "#/components/schemas/TransactionDetail"
     TransactionDetail:
       type: object
       properties:

@@ -46,7 +46,7 @@ const TransactionsPage = () => {
             <header className="transactions-header">
                 <div className="transactions-logo">ARGENTBANK</div>
                 <div className="transactions-user-info">
-                    <span>Tony</span>
+                    <span>USER</span>
                     <Link onClick={handleLogoutClick} to="/"><FontAwesomeIcon icon={faSignOutAlt} />Sign out</Link>
                 </div>
             </header>

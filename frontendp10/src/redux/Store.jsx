@@ -3,8 +3,8 @@ import userAuthSlice from "./Slices"
 
 
 const store = configureStore({
-    reducer:{
-        userAuth:userAuthSlice.reducer
+    reducer: {
+        userAuth: userAuthSlice.reducer
     }
 })
 

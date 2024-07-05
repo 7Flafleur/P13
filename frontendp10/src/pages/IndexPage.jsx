@@ -1,9 +1,9 @@
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUserCircle } from '@fortawesome/free-solid-svg-icons';
-import {Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import  argentbanklogo from '../img/argentBankLogo.png';
+import argentbanklogo from '../img/argentBankLogo.png';
 import banktree from "../img/bank-tree.jpeg";
 import chaticon from "../img/icon-chat.png";
 import moneyicon from '../img/icon-money.png';
@@ -18,7 +18,7 @@ export const IndexPage = () => {
 
 
   const user = useSelector(state => state.userAuth.user)
-  const token = useSelector(state=>state.userAuth.token)
+  const token = useSelector(state => state.userAuth.token)
 
   // console.log("Index user",user)
   // console.log('Index token',token)
@@ -27,7 +27,7 @@ export const IndexPage = () => {
   return (
     <>
       <nav className="main-nav">
-      <Link className="main-nav-logo" to="/">
+        <Link className="main-nav-logo" to="/">
           <img
             className="main-nav-logo-image"
             src={argentbanklogo}

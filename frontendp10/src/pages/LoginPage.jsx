@@ -45,16 +45,16 @@ export const LogInPage = () => {
       sessionStorage.setItem('token', tokenPayload.token);
 
       // console.log("Token set to:", tokenPayload.token);
-      
+
       // console.log("user set to:",emailPayload)
 
       // console.log("Login Response", response.data)
 
-navigate("/user/profile")
+      navigate("/user/profile")
     }
     catch (error) {
-      console.log("error received",error.response.status)
-      
+      console.log("error received", error.response.status)
+
       if (error.response) {
         console.log("Inside error response")
         // if (error.response.status==400){
@@ -75,15 +75,15 @@ navigate("/user/profile")
         }
       } else if (error.request) {
         // The request was made but no response was received
-       setErrorMessage('No response from server. Please check your network connection.')
+        setErrorMessage('No response from server. Please check your network connection.')
       } else {
         // Something happened in setting up the request that triggered an Error
         setErrorMessage(error.message)
       }
- 
+
     }
 
-    
+
 
   };
 

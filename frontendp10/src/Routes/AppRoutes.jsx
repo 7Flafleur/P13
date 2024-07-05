@@ -21,9 +21,11 @@ export const AppRoutes = () => {
            
             <Route path='/user/profile' element={<PrivateOutlet/>} > 
             <Route path='/user/profile' element={<UserPage/>}/>
+            
             </Route>
-            <Route path='/user/transactions' element={<TransactionsPage/>}></Route>
+            <Route path='/user/transactions' element={<TransactionsPage/>}>
 
+            </Route>
             <Route path='/user/signup' element={<SignUpPage/>}/>
             <Route path='api-docs' element={<SwaggerDoc/>}/>
            

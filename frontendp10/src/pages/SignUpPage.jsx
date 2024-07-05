@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 
 export default function SignUpPage() {
-  const {token, setToken} = useToken();
+  const { token, setToken } = useToken();
   const [errorMessage, setErrorMessage] = useState('');
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -18,46 +18,46 @@ export default function SignUpPage() {
       email: emailValue,
       password: passwordValue
     })
-    const {token} = response.data;
+    const { token } = response.data;
     setToken(token);
     navigate('/');
   }
 
   return (
 
-    
+
 
     <div className="content-container">
       <h1>Sign Up</h1>
       {errorMessage && <div className="fail">{errorMessage}</div>}
-      <input 
+      <input
         type="email"
         value={emailValue}
         onChange={e => setEmailValue(e.target.value)}
-        placeholder="someone@example.com" 
+        placeholder="someone@example.com"
       />
       <input
         type="password"
         value={passwordValue}
         onChange={e => setPasswordValue(e.target.value)}
-        placeholder="password" 
+        placeholder="password"
       />
-            <input
+      <input
         type="password"
         value={confirmedPasswordValue}
         onChange={e => setconfirmedPasswordValue(e.target.value)}
-        placeholder="password" 
+        placeholder="password"
       />
-      <button 
+      <button
         disabled={!emailValue || !passwordValue ||
-        passwordValue !== confirmedPasswordValue
-        
+          passwordValue !== confirmedPasswordValue
+
         }
         onClick={onSignUpClicked}
       >
-       Sign Up
+        Sign Up
       </button>
-      
+
       <button onClick={() => nagivate('/login')}>Already have an account?</button>
     </div>
   );
