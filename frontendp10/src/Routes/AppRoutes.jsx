@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { IndexPage } from '../pages/IndexPage';
 import {LogInPage} from '../pages/LoginPage';
-import SignUpPage from '../pages/SignUpPage.jsx';
+
 import {UserPage} from '../pages/UserPage';
 import {PrivateOutlet} from '../auth/PrivateOutlet.jsx'
 import TransactionsPage from '../pages/TransactionsPage.jsx';
@@ -26,7 +26,7 @@ export const AppRoutes = () => {
             <Route path='/user/transactions' element={<TransactionsPage/>}>
 
             </Route>
-            <Route path='/user/signup' element={<SignUpPage/>}/>
+            
             <Route path='api-docs' element={<SwaggerDoc/>}/>
            
             </Routes>

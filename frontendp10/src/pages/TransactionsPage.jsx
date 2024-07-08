@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
 import "./transactions.css";
-import { logout } from '../redux/Slices';
+import { logout } from '../redux/UserAuthSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown, faPencilAlt, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { useDispatch, useSelector } from "react-redux";

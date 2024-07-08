@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import { logout } from '../redux/Slices';
-import { setUser } from '../redux/Slices';
+// import { logout } from '../redux/Slices';
+import { setUser } from '../redux/UserAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';

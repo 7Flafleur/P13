@@ -51,7 +51,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/Slices';
+import { setUser } from '../redux/UserAuthSlice';
 
 export default function useFetch(token) {
     const [response, setResponse] = useState(null);
