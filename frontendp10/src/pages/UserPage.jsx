@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-// import { logout } from '../redux/Slices';
 import { setUser } from '../redux/UserAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -8,6 +7,8 @@ import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import argentbanklogo from '../img/argentBankLogo.png';
 import axios from "axios";
 import useFetch from "../utils/API"
+import { UserLogOut } from "../auth/logOut";
+import Cookies from 'js-cookie';
 
 
 export const UserPage = () => {
@@ -20,17 +21,12 @@ export const UserPage = () => {
 
   // console.log("First token",token)
 
-
-  console.log("User", user)
+  // console.log("User", user)
   // console.log("Token",token)
 
   const [editVisible, setEditVisible] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
   const [firstNameValue, setFirstNameValue] = useState('');
   const [lastNameValue, setLastNameValue] = useState('');
-
-
-
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -38,32 +34,19 @@ export const UserPage = () => {
 
   const re = useFetch(token)
 
-  console.log("re", re)
+  // console.log("re", re)
 
   const userdata = re.response
 
-  console.log("user data", userdata)
-
-
-
-
+  // console.log("user data", userdata)
 
   useEffect(() => {
     if (userdata) {
       dispatch(setUser(userdata));
     }
+    const token = Cookies.get('token');
+    console.log('Token from cookie:', token);
   }, [userdata]);
-
-
-
-
-  const handleLogoutClick = (event) => {
-    dispatch(logout())
-    // console.log('Link was clicked.');
-    // console.log('User', user)
-    // console.log("Token", token)
-    navigate('/')
-  };
 
   const onEditNameClicked = () => {
     setEditVisible(!editVisible)
@@ -97,7 +80,7 @@ export const UserPage = () => {
     }
 
     catch (error) {
-      setErrorMessage(`An error occurred: ${error.response.status}. Please try again later.`);
+      console.log(`An error occurred: ${error.response.status}. Please try again later.`);
 
     }
 
@@ -117,7 +100,7 @@ export const UserPage = () => {
           <h1 className="sr-only">Argent Bank</h1>
         </a>
         <div>
-          <Link to="/" className="main-nav-item" onClick={handleLogoutClick}>
+          <Link to="/" className="main-nav-item" onClick={() => UserLogOut(dispatch, navigate)}>
             <FontAwesomeIcon icon={faSignOutAlt} />
             Sign Out
           </Link>
@@ -191,8 +174,8 @@ export const UserPage = () => {
           </div>
         </section>
       </main>
-      <footer classname="footer">
-        <p classname="footer-text">Copyright 2020 Argent Bank</p>
+      <footer className="footer">
+        <p className="footer-text">Copyright 2020 Argent Bank</p>
       </footer>
     </div>
 
