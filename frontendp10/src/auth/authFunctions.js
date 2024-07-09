@@ -32,10 +32,7 @@ export const UserLogIn = async (emailValue,passwordValue,dispatch,navigate) => {
 
     if (error.response) {
       console.log("Inside error response")
-      // if (error.response.status==400){
-      //   console.log("Error 400")
-      //   setErrorMessage('Unable to log in. Did you check your credentials?')
-      // }
+
       switch (error.response.status) {
         case 400:
           console.log("400 received")
