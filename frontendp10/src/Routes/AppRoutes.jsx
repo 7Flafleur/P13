@@ -7,11 +7,6 @@ import {PrivateOutlet} from '../auth/PrivateOutlet.jsx'
 import TransactionsPage from '../pages/TransactionsPage.jsx';
 import SwaggerDoc from '../pages/SwaggerUi.jsx';
 
-// import { UserProfile } from './pages/UserInfoPage';
-// import LogInPage from '../src/pages/LoginPage.js';
-// import PrivateRoute from './auth/PrivateRoute';
-
-
 export const AppRoutes = () => {
     return (
         <Router>

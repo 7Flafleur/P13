@@ -6,7 +6,7 @@ import Cookies from "js-cookie"
 
 export const UserLogOut = (dispatch, navigate) => {
     dispatch(logout());
-    Cookies.remove('token');
-    deleteErrorMsg();
+    Cookies.remove('cookie');
+    dispatch(deleteErrorMsg());
     navigate("/")
 }
