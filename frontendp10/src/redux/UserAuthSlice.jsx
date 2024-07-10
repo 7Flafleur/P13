@@ -1,11 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+
+
+const initialState = {
+  token: null,
+  user: null,
+  rememberMe:false,
+};
+
+
 const userAuthSlice = createSlice({
     name: "userAuth",
-    initialState: {
-        user: null,
-        token: null,
-    },
+    initialState,
     reducers: {
         setUser: (state, action) => {
             // Check if the action.payload contains only an email or additional properties
@@ -37,8 +43,11 @@ const userAuthSlice = createSlice({
         setToken: (state, action) => {
             state.token = action.payload;
         },
+        setRememberMe: (state, action) => {
+            state.rememberMe = action.payload;
+          },
     },
 });
 
-export const { setUser, logout, setToken } = userAuthSlice.actions;
+export const { setUser, logout, setToken,setRememberMe } = userAuthSlice.actions;
 export default userAuthSlice;

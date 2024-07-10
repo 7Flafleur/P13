@@ -1,64 +1,25 @@
-// import axios from "axios";
-// import { useState, useEffect } from "react";
-// import { useDispatch, useSelector } from 'react-redux';
-
-// import { setUser } from '../redux/Slices';
-
-// export default async function useFetch(token) { 
-
-//     const [response, setResponse] = useState(null);
-//     const [error, setError] = useState('');
-//     const [loading, setLoading] = useState(true);
-
-
-//     const user = useSelector(state => state.userAuth.user);
-
-
-//     const dispatch = useDispatch();
-
-//     const fetchUserData = async (token) => { 
-//         setLoading(true); 
-//         try {
-//             const Response = await axios.post('http://localhost:3001/api/v1/user/profile', {}, { 
-//                 headers: {
-//                     'Authorization': `Bearer ${token}`
-//                 }
-//             });
-//             // console.log("Authorization Header: ", `Bearer ${token}`);
-//             // console.log("Response", Response.data.body);
-
-//             setResponse(Response.data.body); 
-//             dispatch(setUser(response))
-//             console.log("store User ", user)
-//         } catch (error) {
-//             console.error("Error fetching user data:", error);
-//             setError(error);
-//             console.log("Loading")
-//         }
-//     };
-
-//     useEffect(() => {
-//         if (token) { 
-//             fetchUserData(token);
-//         }
-//     }, [token,dispatch]); 
-
-//     return { response, error, loading }; // Return the state from the hook for use in components
-// }
-
-
-
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/UserAuthSlice';
+import { setUser,setToken } from '../redux/UserAuthSlice';
+import { useSelector } from "react-redux";
 
-export default function useFetch(token) {
+
+export default function useFetchToken(token) {
     const [response, setResponse] = useState(null);
     const [error, setError] = useState('');
     const [loading, setLoading] = useState(true);
     const dispatch = useDispatch();
 
+    const rememeberMe = useSelector(state => state.userAuth.rememeberMe);
+
+    if (rememeberMe){
+        const token = localStorage.getItem('token')
+    }
+else{
+    const token = useSelector(state => state.userAuth.token);
+}
+    
     useEffect(() => {
         let isMounted = true; // track if component is mounted
         const fetchUserData = async () => {
@@ -74,6 +35,7 @@ export default function useFetch(token) {
                     dispatch(setUser(res.data.body));
                 }
             } catch (error) {
+               localStorage.removeItem('token')
                 if (isMounted) {
                     setError(error);
                 }
@@ -91,7 +53,7 @@ export default function useFetch(token) {
         return () => {
             isMounted = false; // cleanup to avoid state updates if the component is unmounted
         };
-    }, [token, dispatch]);
+    }, [ ]);
 
     return { response, error, loading };
 }

@@ -1,100 +1,62 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import{ UserLogIn }from "../auth/authFunctions"
-import { setToken, setUser } from '../redux/UserAuthSlice';
+import { UserLogIn } from "../auth/authFunctions"
+import { setRememberMe } from '../redux/UserAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import argentbanklogo from "../img/argentBankLogo.png"
+import useFetchToken from "../utils/API"
+import { setErrorMsg } from "../redux/ErrorMessageSlice";
 
 
 export const LogInPage = () => {
 
   const dispatch = useDispatch();
-  const navigate =useNavigate()
-
-
-  const [errorMessage, setErrorMessage] = useState('');
+  const navigate = useNavigate()
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
+
 
   const user = useSelector(state => state.userAuth.user);
   // console.log("User before",user)
   const token = useSelector(state => state.userAuth.token)
   // console.log("Token before", token)
+  let rememberMe = useSelector(state => state.userAuth.rememberMe)
+  console.log("Remeberme", rememberMe)
+  const errorMessage = useSelector(state => state.errorMsg.errorMessage);
+  // console.log("errorMessage",errorMessage)
+
+  const localToken = localStorage.getItem('token')
 
 
-  // const navigate = useNavigate();
+  useEffect(() => {
+    if (localToken) {
+      alert("Token found!You're still logged in!")
+      navigate("/user/profile");
+    }
 
-
-
-const handleLoginClick = async ()=>{
-  await UserLogIn(emailValue,passwordValue,dispatch,navigate)
-}
-
-
-  // const onLogInClicked = async () => {
-  //   // console.log("Login clicked")
-  //   try {
-  //     const response = await axios.post('http://localhost:3001/api/v1/user/login', {
-  //       email: emailValue,
-  //       password: passwordValue
-  //     });
-
-
-  //     const emailPayload = { email: emailValue }
-  //     const tokenPayload = { token: response.data.body.token }
-  //     // console.log(emailPayload)
-  //     // console.log(tokenPayload)
-  //     dispatch(setUser(emailPayload))
-  //     dispatch(setToken(tokenPayload))
-  //     sessionStorage.setItem('token', tokenPayload.token);
-
-  //     // console.log("Token set to:", tokenPayload.token);
-
-  //     // console.log("user set to:",emailPayload)
-
-  //     // console.log("Login Response", response.data)
-
-  //     navigate("/user/profile")
-  //   }
-  //   catch (error) {
-  //     console.log("error received", error.response.status)
-
-  //     if (error.response) {
-  //       console.log("Inside error response")
-  //       // if (error.response.status==400){
-  //       //   console.log("Error 400")
-  //       //   setErrorMessage('Unable to log in. Did you check your credentials?')
-  //       // }
-  //       switch (error.response.status) {
-  //         case 400:
-  //           console.log("400 received")
-  //           setErrorMessage('Unable to log in. Did you check your credentials?')
-  //           break;
-  //         case 500:
-  //           setErrorMessage('Server error. Please try again later.')
-  //           break;
-  //         default:
-  //           console.log("default error")
-  //           setErrorMessage(`An error occurred: ${error.response.status}. Please try again later.`)
-  //       }
-  //     } else if (error.request) {
-  //       // The request was made but no response was received
-  //       setErrorMessage('No response from server. Please check your network connection.')
-  //     } else {
-  //       // Something happened in setting up the request that triggered an Error
-  //       setErrorMessage(error.message)
-  //     }
-
-  //   }
+  }, [])
 
 
 
-  // };
 
 
+  const handleLoginClick = async () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if (emailRegex.test(emailValue))   
+{    await UserLogIn(emailValue, passwordValue, dispatch, navigate, rememberMe)}
+    else {
+      setEmailValue(emailValue); // Allow the user to correct their entry by updating the state
+      dispatch(setErrorMsg('Sure that\'s an email address?'));
+    }
+  }
 
-  // console.log("User end",user)
+  const toggleRemeber = () => {
+    dispatch(setRememberMe(!rememberMe))
+    console.log("Remeber me", rememberMe)
+  }
+
+
 
   return (
 
@@ -140,7 +102,7 @@ const handleLoginClick = async ()=>{
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" /><label htmlFor="remember-me"
+            <input type="checkbox" id="remember-me" onChange={() => toggleRemeber()} /><label htmlFor="remember-me"
             >Remember me</label>
           </div>
 
