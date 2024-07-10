@@ -1,42 +1,52 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from 'react-router-dom';
-// import axios from 'axios';
-import{ UserLogIn }from "../auth/authFunctions"
-// import { setToken, setUser } from '../redux/UserAuthSlice';
+import { UserLogIn } from "../auth/authFunctions"
+import { setRememberMe } from '../redux/UserAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import argentbanklogo from "../img/argentBankLogo.png"
+import useFetchToken from "../utils/API"
 
 
 export const LogInPage = () => {
 
   const dispatch = useDispatch();
-  const navigate =useNavigate()
-
+  const navigate = useNavigate()
   const [emailValue, setEmailValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
-  const [rememberMe,setRememberMe] = useState(false)
+
 
   const user = useSelector(state => state.userAuth.user);
   // console.log("User before",user)
   const token = useSelector(state => state.userAuth.token)
   // console.log("Token before", token)
+  let rememberMe = useSelector(state => state.userAuth.rememberMe)
+  console.log("Remeberme", rememberMe)
   const errorMessage = useSelector(state => state.errorMsg.errorMessage);
-console.log("errorMessage",errorMessage)
-console.log("Remeberme",rememberMe)
+  // console.log("errorMessage",errorMessage)
 
-  // const navigate = useNavigate();
+  const localToken = localStorage.getItem('token')
+
+  useEffect(() => {
+    if (localToken) {
+      alert("Token found!You're still logged in!")
+      navigate("/user/profile");
+    }
+
+  }, [])
 
 
 
-const handleLoginClick = async ()=>{
-  await UserLogIn(emailValue,passwordValue,dispatch,navigate,rememberMe)
-  
-}
 
-const toggleRemeber = () => {
-  setRememberMe(!rememberMe)
- 
-}
+
+  const handleLoginClick = async () => {
+    await UserLogIn(emailValue, passwordValue, dispatch, navigate, rememberMe)
+
+  }
+
+  const toggleRemeber = () => {
+    dispatch(setRememberMe(!rememberMe))
+    console.log("Remeber me", rememberMe)
+  }
 
 
 
@@ -84,7 +94,7 @@ const toggleRemeber = () => {
             />
           </div>
           <div className="input-remember">
-            <input type="checkbox" id="remember-me" onChange={()=>toggleRemeber()} /><label htmlFor="remember-me"
+            <input type="checkbox" id="remember-me" onChange={() => toggleRemeber()} /><label htmlFor="remember-me"
             >Remember me</label>
           </div>
 

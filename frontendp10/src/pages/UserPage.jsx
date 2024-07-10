@@ -6,9 +6,10 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import argentbanklogo from '../img/argentBankLogo.png';
 import axios from "axios";
-import useFetch from "../utils/API"
+import useFetchToken from "../utils/API"
 import { UserLogOut } from "../auth/logOut";
 import Cookies from 'js-cookie';
+import { getTokenFromCookie } from "../auth/cookiesFunctions"
 
 
 export const UserPage = () => {
@@ -16,13 +17,13 @@ export const UserPage = () => {
 
 
   const user = useSelector(state => state.userAuth.user);
-  // const token = useSelector(state => state.userAuth.token.token);
-  const token = sessionStorage.getItem('token')
+  const token = useSelector(state => state.userAuth.token);
+
 
   // console.log("First token",token)
 
-  // console.log("User", user)
-  // console.log("Token",token)
+  console.log("User", user)
+  console.log("User Token", token)
 
   const [editVisible, setEditVisible] = useState(false);
   const [firstNameValue, setFirstNameValue] = useState('');
@@ -32,7 +33,7 @@ export const UserPage = () => {
   const dispatch = useDispatch();
 
 
-  const re = useFetch(token)
+  const re = useFetchToken(token) 
 
   // console.log("re", re)
 
@@ -44,8 +45,10 @@ export const UserPage = () => {
     if (userdata) {
       dispatch(setUser(userdata));
     }
-    const token = Cookies.get('token');
-    console.log('Token from cookie:', token);
+
+    // console.log("Cookie", Cookies.get('cookie'))
+    // const token = getTokenFromCookie('cookie');
+    // console.log('Token from cookie:', token);
   }, [userdata]);
 
   const onEditNameClicked = () => {
@@ -91,14 +94,14 @@ export const UserPage = () => {
 
     <div className="body">
       <nav className="main-nav">
-        <a className="main-nav-logo" href="./index.html">
+      <Link to="/" className="main-nav-logo" href="">
           <img
             className="main-nav-logo-image"
             src={argentbanklogo}
             alt="Argent Bank Logo"
           />
           <h1 className="sr-only">Argent Bank</h1>
-        </a>
+        </Link>
         <div>
           <Link to="/" className="main-nav-item" onClick={() => UserLogOut(dispatch, navigate)}>
             <FontAwesomeIcon icon={faSignOutAlt} />

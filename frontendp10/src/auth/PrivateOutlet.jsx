@@ -6,8 +6,8 @@ import { useSelector } from 'react-redux';
 export const PrivateOutlet = ({ children}) => {
     const user = useSelector(state => state.userAuth.user);
     const token = useSelector(state => state.userAuth.token);
-    const isAuthenticated = !!user && !!token;
+    // const isAuthenticated = !!user && !!token;
 
 
-    return isAuthenticated ? <Outlet /> : <Navigate to="/" />
+    return token ? <Outlet /> : <Navigate to="/" />
 }
