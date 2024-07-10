@@ -8,8 +8,7 @@ import argentbanklogo from '../img/argentBankLogo.png';
 import axios from "axios";
 import useFetchToken from "../utils/API"
 import { UserLogOut } from "../auth/logOut";
-import Cookies from 'js-cookie';
-import { getTokenFromCookie } from "../auth/cookiesFunctions"
+
 
 
 export const UserPage = () => {

@@ -1,7 +1,6 @@
 import axios from 'axios';
 import { setToken, setUser } from '../redux/UserAuthSlice';
 import { setErrorMsg, deleteErrorMsg } from '../redux/ErrorMessageSlice';
-import { setCookie, cookiesExpired, getTokenFromCookie } from './cookiesFunctions';
 
 const API_URL = 'http://localhost:3001/api/v1/user/login';
 

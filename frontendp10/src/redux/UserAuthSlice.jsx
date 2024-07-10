@@ -8,12 +8,6 @@ const initialState = {
   rememberMe:false,
 };
 
-// Check if token is available and not expired in the cookie
-if (!cookiesExpired('auth_token')) {
-  initialState.token = getTokenFromCookie('auth_token');
-}
-
-
 
 const userAuthSlice = createSlice({
     name: "userAuth",
