@@ -14,7 +14,7 @@ servers:
 paths:
   /user/transactions/overview:
     get:
-      summary: View balance of all accounts
+      summary: View current balance of all accounts
       tags:
         - Overview
       security:
@@ -30,10 +30,14 @@ paths:
           description: Operation successful
         "401":
           description: Unauthorized
+        "500":
+          description: Internal Server Error
+        "503":
+          description: Service unavailable
 
   /user/transactions/detail/{accountId}:
     get:
-      summary: View details of account
+      summary: View current details of specific account
       tags:
         - Account Details
       security:
@@ -56,9 +60,17 @@ paths:
             $ref: "#/definitions/ApiResponse"
         "401":
           description: Unauthorized
+        "403":
+          description: Forbidden              
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+        "503":
+          description: Service unavailable
 
   /user/transactions/detail/{accountId}/category:
-    post:
+    put:
       summary: Add items to Select Dropdown
       tags:
         - Category
@@ -89,6 +101,12 @@ paths:
           description: Operation successful
         "401":
           description: Unauthorized
+        "403":
+          description: Forbidden       
+        "500":
+          description: Internal Server Error
+        "503":
+          description: Service unavailable
 
   /user/transactions/detail/{accountId}/notes:
     post:
@@ -122,8 +140,16 @@ paths:
       responses:
         "200":
           description: Operation successful
+        "400":
+          description: Bad request
         "401":
           description: Unauthorized
+        "403":
+          description: Forbidden              
+        "500":
+          description: Internal Server Error
+        "503":
+          description: Service unavailable
 
 components:
   securitySchemes:

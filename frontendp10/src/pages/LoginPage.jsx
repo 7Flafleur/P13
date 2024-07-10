@@ -5,6 +5,7 @@ import { setRememberMe } from '../redux/UserAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import argentbanklogo from "../img/argentBankLogo.png"
 import useFetchToken from "../utils/API"
+import { setErrorMsg } from "../redux/ErrorMessageSlice";
 
 
 export const LogInPage = () => {
@@ -26,6 +27,7 @@ export const LogInPage = () => {
 
   const localToken = localStorage.getItem('token')
 
+
   useEffect(() => {
     if (localToken) {
       alert("Token found!You're still logged in!")
@@ -39,8 +41,14 @@ export const LogInPage = () => {
 
 
   const handleLoginClick = async () => {
-    await UserLogIn(emailValue, passwordValue, dispatch, navigate, rememberMe)
-
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  
+    if (emailRegex.test(emailValue))   
+{    await UserLogIn(emailValue, passwordValue, dispatch, navigate, rememberMe)}
+    else {
+      setEmailValue(emailValue); // Allow the user to correct their entry by updating the state
+      dispatch(setErrorMsg('Sure that\'s an email address?'));
+    }
   }
 
   const toggleRemeber = () => {
