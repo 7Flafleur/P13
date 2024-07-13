@@ -37,13 +37,6 @@ export const UserLogIn = async (emailValue, passwordValue, dispatch, navigate, r
       localStorage.setItem("token", tokenPayload)
     }
    
-    // if (cookiesExpired('auth_token')) {
-    //   setCookie(response.data.body.token, rememberMe);
-    //   tokenPayload = response.data.body.token;
-    // } else {
-    //   tokenPayload = getTokenFromCookie('auth_token');
-    // }
-
     // Update Redux state
     dispatch(setUser(emailPayload));
     dispatch(setToken(tokenPayload));

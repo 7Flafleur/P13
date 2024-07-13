@@ -1,14 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-
-
-
 const initialState = {
   token: null,
   user: null,
   rememberMe:false,
 };
-
-
 const userAuthSlice = createSlice({
     name: "userAuth",
     initialState,
@@ -31,7 +26,6 @@ const userAuthSlice = createSlice({
                     state.token = action.payload.token;
                 }
             }
-
             else {
                 console.error("No action payload")
             }
@@ -48,6 +42,5 @@ const userAuthSlice = createSlice({
           },
     },
 });
-
 export const { setUser, logout, setToken,setRememberMe } = userAuthSlice.actions;
 export default userAuthSlice;

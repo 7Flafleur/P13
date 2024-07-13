@@ -1,6 +1,5 @@
 import { logout,setRememberMe } from "../redux/UserAuthSlice";
 import { deleteErrorMsg } from "../redux/ErrorMessageSlice";
-import Cookies from "js-cookie"
 
 
 

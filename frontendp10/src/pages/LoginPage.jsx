@@ -4,7 +4,7 @@ import { UserLogIn } from "../auth/authFunctions"
 import { setRememberMe } from '../redux/UserAuthSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import argentbanklogo from "../img/argentBankLogo.png"
-import useFetchToken from "../utils/API"
+
 import { setErrorMsg } from "../redux/ErrorMessageSlice";
 
 
@@ -25,8 +25,7 @@ export const LogInPage = () => {
   const errorMessage = useSelector(state => state.errorMsg.errorMessage);
   // console.log("errorMessage",errorMessage)
 
-  const localToken = localStorage.getItem('token')
-
+  const localToken = localStorage.getItem('token') // just for demonstration purposes, use HTTP-only ,secure an SameSite cookies and server-side validation for more safety
 
   useEffect(() => {
     if (localToken) {
@@ -35,9 +34,6 @@ export const LogInPage = () => {
     }
 
   }, [])
-
-
-
 
 
   const handleLoginClick = async () => {
@@ -55,8 +51,6 @@ export const LogInPage = () => {
     dispatch(setRememberMe(!rememberMe))
     console.log("Remeber me", rememberMe)
   }
-
-
 
   return (
 
