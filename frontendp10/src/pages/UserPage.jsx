@@ -17,6 +17,8 @@ export const UserPage = () => {
 
   const user = useSelector(state => state.userAuth.user);
   const token = useSelector(state => state.userAuth.token);
+  const localToken =  localStorage.getItem('token')
+const localUser =localStorage.getItem('user')
 
 
   // console.log("First token",token)

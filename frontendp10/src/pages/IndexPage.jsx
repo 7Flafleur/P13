@@ -9,16 +9,13 @@ import chaticon from "../img/icon-chat.png";
 import moneyicon from '../img/icon-money.png';
 import securityicon from '../img/icon-security.png';
 
-
-
-
-
-
 export const IndexPage = () => {
 
 
   const user = useSelector(state => state.userAuth.user)
-  const token = useSelector(state => state.userAuth.token)
+  const localToken =  localStorage.getItem('token')
+
+  const token = localToken? localToken : useSelector(state => state.userAuth.token);
 
   // console.log("Index user",user)
   // console.log('Index token',token)
