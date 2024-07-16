@@ -13,7 +13,7 @@ servers:
   - url: http://localhost:3001/api/v1
 paths:
 
-  /user/profile/{accountId}:
+  /user/profile/accounts/{accountId}:
     get:
       summary: Overview of specific account
       tags:
@@ -47,7 +47,7 @@ paths:
           description: Service unavailable
 
 # ENDPOINT COULD BE USED FOR MODAL THAT DISPLAYS EVERY INDIVIDUAL TRANSACTION
-  /user/profile/{accountId}/{transactionId}:
+  /user/profile/accounts/{accountId}/transactions/{transactionId}:
     get:
       summary: View  details of specific transation on specific account, could be used to create a modal for each transaction
       tags:
@@ -82,7 +82,7 @@ paths:
         "503":
           description: Service unavailable
 
-  /user/profile/{accountId}/{transactionId}/category:
+  /user/profile/accounts/{accountId}/transcations/{transactionId}/category:
     put:
       summary: Add items to select dropdown
       tags:
@@ -121,7 +121,7 @@ paths:
         "503":
           description: Service unavailable
 
-  /user/profile/{accountId}/{transactionId}/notes:
+  /user/profile/accounts/{accountId}/transactions/{transactionId}/notes:
     post:
       summary: Add notes via text input
       tags:
