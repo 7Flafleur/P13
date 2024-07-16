@@ -12,28 +12,6 @@ schemes:
 servers:
   - url: http://localhost:3001/api/v1
 paths:
-  /user/profile/:
-    get:
-      summary: View current balance of all accounts
-      tags:
-        - Profile Overview
-      security:
-        - bearerAuth: []
-      parameters:
-        - in: header
-          name: Authorization
-          description: Attach Bearer JWT token
-          required: true
-
-      responses:
-        "200":
-          description: Operation successful
-        "401":
-          description: Unauthorized
-        "500":
-          description: Internal Server Error
-        "503":
-          description: Service unavailable
 
   /user/profile/{accountId}:
     get:
@@ -69,40 +47,40 @@ paths:
           description: Service unavailable
 
 # ENDPOINT COULD BE USED FOR MODAL THAT DISPLAYS EVERY INDIVIDUAL TRANSACTION
-  # /user/profile/{accountId}/{transactionId}:
-  #   get:
-  #     summary: View  details of specific transation on specific account
-  #     tags:
-  #       - Transaction Details
-  #     security:
-  #       - bearerAuth: []
-  #     parameters:
-  #       - in: path
-  #         name: accountId
-  #         required: true
-  #         schema:
-  #           type: string
-  #         description: The ID of the transaction to view 
+  /user/profile/{accountId}/{transactionId}:
+    get:
+      summary: View  details of specific transation on specific account, could be used to create a modal for each transaction
+      tags:
+        - Transaction Details
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: path
+          name: accountId
+          required: true
+          schema:
+            type: string
+          description: The ID of the transaction to view 
 
         
-  #       - in: header
-  #         name: Authorization
-  #         description: Attach Bearer JWT token
-  #         required: true
-  #     responses:
-  #       "200":
-  #         description: Operation successful
+        - in: header
+          name: Authorization
+          description: Attach Bearer JWT token
+          required: true
+      responses:
+        "200":
+          description: Operation successful
  
-  #       "401":
-  #         description: Unauthorized
-  #       "403":
-  #         description: Forbidden              
-  #       "404":
-  #         description: Not Found
-  #       "500":
-  #         description: Internal Server Error
-  #       "503":
-  #         description: Service unavailable
+        "401":
+          description: Unauthorized
+        "403":
+          description: Forbidden              
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+        "503":
+          description: Service unavailable
 
   /user/profile/{accountId}/{transactionId}/category:
     put:
@@ -186,6 +164,9 @@ paths:
         "503":
           description: Service unavailable
 
+
+
+
 components:
   securitySchemes:
     bearerAuth:
@@ -193,60 +174,47 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    Overview:
+    IndividualAccount:
+      type: object
       properties:
+        accountId:
+          type: string
+          description: Account ID
         accountName:
           type: string
           description: Account name
         availableBalance:
           type: number
-          description: Account Balance
-    Individual Account:
-      properties:
-        accountId:
-          type:string
-        accountName:
-          type: string
-          description: Account Name
-        availableBalance:
-          type: number
-          description: Account Balance
+          description: Account balance
         transactions:
           type: array
           items:
-            type: object
-            properties:
-              transactionDate:
-                type: string
-                format: date
-                description: Date of the transaction
-              transactionDescription:
-                type: string
-                description: Description of transaction
-              amount:
-                type: number
-                description: Transaction amount
-              newBalance:
-                type: number
-                description: New Balance after traansaction
-              transactionType:
-                type: string
-                description: Decription of Type of Transaction
-              transactionCategory:
-                type: string
-                description: Description of Transaction Category
-              transactionNotes:
-                type: string
-                description: Additional Information about Transaction
-
+            $ref: '#/components/schemas/TransactionDetail'
     TransactionDetail:
       type: object
       properties:
         transactionId:
           type: string
+          description: Transaction ID
         amount:
           type: number
+          description: Transaction amount
         date:
           type: string
+          format: date
+          description: Date of the transaction
         type:
           type: string
+          description: Type of transaction
+        transactionDescription:
+          type: string
+          description: Description of transaction
+        newBalance:
+          type: number
+          description: New balance after transaction
+        transactionCategory:
+          type: string
+          description: Description of transaction category
+        transactionNotes:
+          type: string
+          description: Additional information about transaction
