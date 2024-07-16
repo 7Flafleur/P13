@@ -12,11 +12,11 @@ schemes:
 servers:
   - url: http://localhost:3001/api/v1
 paths:
-  /user/transactions/overview:
+  /user/profile/:
     get:
       summary: View current balance of all accounts
       tags:
-        - Overview
+        - Profile Overview
       security:
         - bearerAuth: []
       parameters:
@@ -35,11 +35,11 @@ paths:
         "503":
           description: Service unavailable
 
-  /user/transactions/detail/{accountId}:
+  /user/profile/{accountId}:
     get:
-      summary: View current details of specific account
+      summary: Overview of specific account
       tags:
-        - Account Details
+        - Individual Account 
       security:
         - bearerAuth: []
       parameters:
@@ -56,8 +56,7 @@ paths:
       responses:
         "200":
           description: Operation successful
-          schema:
-            $ref: "#/definitions/ApiResponse"
+ 
         "401":
           description: Unauthorized
         "403":
@@ -69,9 +68,44 @@ paths:
         "503":
           description: Service unavailable
 
-  /user/transactions/detail/{accountId}/category:
+  # /user/profile/{accountId}/{transactionId}:
+  #   get:
+  #     summary: View  details of specific transation on specific account
+  #     tags:
+  #       - Transaction Details
+  #     security:
+  #       - bearerAuth: []
+  #     parameters:
+  #       - in: path
+  #         name: accountId
+  #         required: true
+  #         schema:
+  #           type: string
+  #         description: The ID of the transaction to view 
+
+        
+  #       - in: header
+  #         name: Authorization
+  #         description: Attach Bearer JWT token
+  #         required: true
+  #     responses:
+  #       "200":
+  #         description: Operation successful
+ 
+  #       "401":
+  #         description: Unauthorized
+  #       "403":
+  #         description: Forbidden              
+  #       "404":
+  #         description: Not Found
+  #       "500":
+  #         description: Internal Server Error
+  #       "503":
+  #         description: Service unavailable
+
+  /user/profile/{accountId}/{transactionId}/category:
     put:
-      summary: Add items to Select Dropdown
+      summary: Add items to select dropdown
       tags:
         - Category
       security:
@@ -108,7 +142,7 @@ paths:
         "503":
           description: Service unavailable
 
-  /user/transactions/detail/{accountId}/notes:
+  /user/profile/{accountId}/{transactionId}/notes:
     post:
       summary: Add notes via text input
       tags:
@@ -158,7 +192,7 @@ components:
       scheme: bearer
       bearerFormat: JWT
   schemas:
-    AccountOverview:
+    Overview:
       properties:
         accountName:
           type: string
@@ -166,8 +200,10 @@ components:
         availableBalance:
           type: number
           description: Account Balance
-    AccountDetails:
+    Individual Account:
       properties:
+        accountId:
+          type:string
         accountName:
           type: string
           description: Account Name
@@ -202,17 +238,6 @@ components:
                 type: string
                 description: Additional Information about Transaction
 
-    AccountDetail:
-      type: object
-      properties:
-        accountId:
-          type: string
-        balance:
-          type: number
-        transactions:
-          type: array
-          items:
-            $ref: "#/components/schemas/TransactionDetail"
     TransactionDetail:
       type: object
       properties:
