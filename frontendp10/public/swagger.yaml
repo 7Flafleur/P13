@@ -68,6 +68,7 @@ paths:
         "503":
           description: Service unavailable
 
+# ENDPOINT COULD BE USED FOR MODAL THAT DISPLAYS EVERY INDIVIDUAL TRANSACTION
   # /user/profile/{accountId}/{transactionId}:
   #   get:
   #     summary: View  details of specific transation on specific account
